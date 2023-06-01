@@ -1,6 +1,7 @@
 import { Draggable, Droppable } from "react-beautiful-dnd"
 import TodoCard from "./TodoCard";
 import { PlusCircleIcon } from "@heroicons/react/24/solid";
+import { useBoardStore } from "@/store/Boardstore";
 
 type Props = {
     id: TypedColumn;
@@ -18,6 +19,8 @@ const idToColumnText: {
 
 }
 function Column({ id, todos, index }: Props) {
+
+    const [searchString] = useBoardStore((state) => [state.searchString])
     return (
         <Draggable draggableId={id} index={index}>
             {(provided) => (
@@ -40,11 +43,18 @@ function Column({ id, todos, index }: Props) {
                                  bg-gray-200 rounded-full px-2 py-2 text-sm
                                             font-normal
 
-                                ">{todos.length}</span></h2>
+                                ">{!searchString ? todos.length : todos.filter(
+                                        todo => todo.title.toLowerCase().includes(searchString)).length}</span></h2>
 
                                 <div className="space-y-2 ">
-                                    {todos.map((todo, index) => (
-                                        <Draggable
+                                    {todos.map((todo, index) => {
+                                        if (
+                                            searchString &&
+                                            !todo.title.toLowerCase().includes(searchString.toLowerCase())) {
+                                            return null;
+                                        }
+
+                                        return (<Draggable
                                             key={todo.$id}
                                             draggableId={todo.$id}
                                             index={index}
@@ -60,8 +70,12 @@ function Column({ id, todos, index }: Props) {
                                                 />
                                             )}
                                         </Draggable>
-                                    ))}
+                                        );
+
+                                    })}
+
                                     {provided.placeholder}
+
 
                                     <div className="flex items-end justify-end p-2">
                                         <button><PlusCircleIcon className="h-10 w-10 text-green-500" /></button>
