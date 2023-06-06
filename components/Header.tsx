@@ -4,12 +4,34 @@ import Image from "next/image"
 import { MagnifyingGlassIcon, UserCircleIcon } from "@heroicons/react/24/solid"
 import Avatar from "react-avatar"
 import { useBoardStore } from "@/store/Boardstore";
+import { useEffect, useState } from "react";
+import fetchSuggestion from "@/lib/fetchSuggestion";
 
 function Header() {
 
-    const [searchString, setSearchString] = useBoardStore((state) => [
+    const [board, searchString, setSearchString] = useBoardStore((state) =>
+        [state.board,
         state.searchString,
-        state.setSearchString])
+        state.setSearchString]);
+
+    const [loading, setloading] = useState<boolean>(false);
+    const [suggestion, setsuggestion] = useState<string>("");
+
+    useEffect(() => {
+        if (board.columns.size === 0) return;
+
+        setloading(true);
+
+
+        const fetchSuggestionFunc = async () => {
+            const suggestions = await fetchSuggestion(board);
+            setsuggestion(suggestions);
+            setloading(false);
+        };
+        fetchSuggestionFunc();
+
+    }, [board]);
+
 
     return (
         <header>
@@ -54,16 +76,20 @@ function Header() {
 
 
             </div>
-
+            {/* 
             <div className="flex justify-center items-center px-5 md:py-5">
                 <p className=" flex items-center rounded-xl bg-white italic text-sm font-light
                   shadow-xl p-5
                  pr-5 w-full max-w-3xl text-blue-500
                 ">
-                    <UserCircleIcon className="inline-block w-10 h-10 text-blue-500" />
-                    GPT is summerizing your task for the day
+                    <UserCircleIcon className={`inline-block w-10 h-10 text-blue-500 mr-1
+                     ${loading && "animate-pulse"}
+                    `} />
+                    {suggestion && !loading
+                        ? suggestion
+                        : "GPT is summerizing your tasks for the day..."}
                 </p>
-            </div>
+            </div> */}
 
         </header>
     )
