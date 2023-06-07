@@ -76,7 +76,7 @@ function Header() {
 
 
             </div>
-            {/* 
+
             <div className="flex justify-center items-center px-5 md:py-5">
                 <p className=" flex items-center rounded-xl bg-white italic text-sm font-light
                   shadow-xl p-5
@@ -89,7 +89,7 @@ function Header() {
                         ? suggestion
                         : "GPT is summerizing your tasks for the day..."}
                 </p>
-            </div> */}
+            </div>
 
         </header>
     )
