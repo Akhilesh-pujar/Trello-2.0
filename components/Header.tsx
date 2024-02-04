@@ -83,7 +83,7 @@ function Header() {
                  pr-5 w-full max-w-3xl text-blue-500
                 ">
                     <UserCircleIcon className={`inline-block w-10 h-10 text-blue-500 mr-1
-                     ${loading && "animate-pulse"}
+                     ${loading && "animate-spin"}
                     `} />
                     {suggestion && !loading
                         ? suggestion

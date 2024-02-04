@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 import { DraggableProvidedDragHandleProps, DraggableProvidedDraggableProps } from "react-beautiful-dnd";
 
 type Props = {
-    todo: Todo; 1
+    todo: Todo;
     index: number;
     id: TypedColumn;
     innerRef: (element: HTMLElement | null) => void;

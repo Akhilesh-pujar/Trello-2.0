@@ -15,7 +15,7 @@ const types = [
     },
     {
         id: "inprogress",
-        name: 'In progress',
+        name: 'inprogress',
         description: "A new task that is currently being worked on",
         color: "bg-yellow-500",
     },
@@ -39,7 +39,7 @@ export default function TaskTypeRadioGroup({ }: Props) {
                 <RadioGroup
                     value={newTaskType}
                 // onChange={(e) => {
-                //     setTaskType;
+                //     setTaskType(e.target.value);
                 // }}
                 >
                     <div className='space-y-2'>

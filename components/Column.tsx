@@ -47,7 +47,7 @@ function Column({ id, todos, index }: Props) {
                                             font-normal
 
                                 ">{!searchString ? todos.length : todos.filter(
-                                        todo => todo.title.toLowerCase().includes(searchString)).length}</span></h2>
+                                        todo => todo.title.toLowerCase().includes(searchString.toLocaleLowerCase())).length}</span></h2>
 
                                 <div className="space-y-2 ">
                                     {todos.map((todo, index) => {
@@ -81,7 +81,7 @@ function Column({ id, todos, index }: Props) {
 
 
                                     <div className="flex items-end justify-end p-2">
-                                        <button onClick={openModal}><PlusCircleIcon className="h-10 w-10 text-green-500" /></button>
+                                        <button onClick={openModal}><PlusCircleIcon className="h-10 w-10 text-green-500" />Add</button>
                                     </div>
                                 </div>
                             </div>
